@@ -4,7 +4,7 @@ import os
 output_dir = os.path.join('../../Musics/', 'test.mp3')
 
 download_list = [
-    'https://www.youtube.com/watch?v=DNZy_B7YO3k',
+    'https://www.youtube.com/watch?v=JbV-yAKIXgs',
     ]
 
 ydl_opt = {
