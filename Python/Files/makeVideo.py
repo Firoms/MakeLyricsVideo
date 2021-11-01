@@ -12,9 +12,7 @@ for i in range(len(timeList)):
 
 print(len(frameList))
 frameSize = (1470, 980)
-
 out = cv2.VideoWriter('../../Videos/test.avi',cv2.VideoWriter_fourcc(*'DIVX'), 1, frameSize)
-
 idx = 0
 for filename in glob.glob('../..//Images/*.jpg'):
     for i in range(frameList[idx]):
