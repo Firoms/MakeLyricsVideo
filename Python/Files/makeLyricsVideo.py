@@ -13,7 +13,10 @@ class makeLyricsVideo:
         self.videoName = Name
         self.makeImg()
 
-    def getLyrics(self):
+    def makeDir(self, dirName) -> None:
+        pass
+
+    def getLyrics(self) -> None::
         '''
         영상에 들어갈 제목, 가수, 가사를 입력받는 함수
         '''
@@ -23,11 +26,7 @@ class makeLyricsVideo:
         print('첫번째 줄은 "제목 - 가수" 형식이어야 하며, 두번째 줄은 공백, 세번째 줄부터는 가사를 넣어주세요.')
         lyricsInput = input("저장 이후 파일을 닫고 엔터를 눌러주시면 진행됩니다.")
 
-
-    def makeImg(self) -> None:
-        '''
-        영상에 들어갈 가사가 적힌 사진을 만드는 함수
-        '''
+    def makeTitleImg(self) -> None::
         lyricsFile = open(
             f'../../Lyrics/{self.videoName}/lyrics.txt', 'r', encoding='UTF8')
         titleLine = lyricsFile.readline()
@@ -55,6 +54,16 @@ class makeLyricsVideo:
         nextLine = lyricsFile.readline()
         alps = list(alpGenerator())
 
+
+    def makeImg(self) -> None:
+        '''
+        영상에 들어갈 가사가 적힌 사진을 만드는 함수
+        '''
+        lyricsFile = open(
+            f'../../Lyrics/{self.videoName}/lyrics.txt', 'r', encoding='UTF8')
+        titleLine = lyricsFile.readline()
+        title, singer = titleLine.split("-")
+        fontsFolder = '../../Fonts'
         idx = 0
         while curLine1:
             targetImage = Image.open('../../Images/background/background.jfif')
