@@ -20,7 +20,6 @@ class makeLyricsVideo:
     def makeDir(self) -> None:
         """
         영상 제작에 필요한 파일들을 저장하는 디렉토리 생성 함수
-        & Lyrics 폴더에 txt 파일 생성
         """
         try:
             os.chdir('../../Lyrics')
@@ -127,7 +126,6 @@ class makeLyricsVideo:
                 continue
             self.frameList.append(timeList[i]-timeList[i-1])
 
-
     def makeVideo(self) -> None:
         '''
         가사가 적힌 사진을 모아 영상으로 제작하는 함수
@@ -153,8 +151,6 @@ class makeLyricsVideo:
         output_dir = os.path.join(
             f'../../Musics/{self.videoName}/', f'{self.videoName}.mp3')
 
-        
-
         ydlOpt = {
             'outtmpl': output_dir,
             'format': 'bestaudio/best',
@@ -167,8 +163,10 @@ class makeLyricsVideo:
         '''
         영상에 다운로드 받은 음악을 합쳐 완성하는 함수
         '''
-        audio = mp.AudioFileClip(f"../../Musics/{self.videoName}/{self.videoName}.mp3")
-        video1 = mp.VideoFileClip(f"../../Videos/{self.videoName}/{self.videoName}-nosound.avi")
+        audio = mp.AudioFileClip(
+            f"../../Musics/{self.videoName}/{self.videoName}.mp3")
+        video1 = mp.VideoFileClip(
+            f"../../Videos/{self.videoName}/{self.videoName}-nosound.avi")
         final = video1.set_audio(audio)
         final.write_videofile(
             f"../../Videos/{self.videoName}/{self.videoName}.mp4", codec='mpeg4', audio_codec='libvorbis')
