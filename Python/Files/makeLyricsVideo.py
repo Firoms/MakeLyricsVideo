@@ -1,7 +1,9 @@
 import cv2
+import datetime
 import glob
 import moviepy.editor as mp
 import os
+import sqlite3
 import youtube_dl
 from alpGenerator import alpGenerator
 from PIL import Image, ImageDraw, ImageFont
@@ -174,6 +176,15 @@ class makeLyricsVideo:
         final.write_videofile(
             f"../../Videos/{self.videoName}/{self.videoName}.mp4", codec='mpeg4', audio_codec='libvorbis')
 
+    def saveDatabase(self) -> None:
+        db = sqlite3.connect(
+            "../../Database/Datas.db")
+        cursor = db.cursor()
+        cursor.execute(f"SELECT COUNT(*) FROM VideoDatas")
+        count = cursor.fetchone()[0]
+        insert_query = f"INSERT INTO VideoDatas VALUES('{count+1}','{self.videoName}','{self.frameList}','{datetime.datetime.now()}')"
+        cursor.execute(insert_query)
+        db.commit()
 
 if __name__ == '__main__':
     name = input("영상 제목을 영어로 입력해주세요 : ")
@@ -185,3 +196,6 @@ if __name__ == '__main__':
     video.makeVideo()
     video.downloadMusic()
     video.putMusicInVideo()
+    video.saveDatabase()
+
+    
