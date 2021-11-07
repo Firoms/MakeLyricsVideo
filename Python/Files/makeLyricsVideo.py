@@ -47,6 +47,9 @@ class makeLyricsVideo:
             f'../../Lyrics/{self.videoName}/lyrics.txt', 'r', encoding='UTF8')
 
     def makeTitleImg(self) -> None:
+        '''
+        영상에 들어갈 제목 사진을 만드는 함수
+        '''
         self.titleLine = self.lyricsFile.readline()
         title, singer = self.titleLine.split("-")
         fontsFolder = '../../Fonts'
