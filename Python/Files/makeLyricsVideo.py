@@ -72,7 +72,7 @@ class makeLyricsVideo:
         targetImage.save(f"../../Images/{self.videoName}/aa.jpg")
         blankLine = self.lyricsFile.readline()
 
-    def makeImg(self) -> None:
+    def makeImgs(self) -> None:
         '''
         영상에 들어갈 가사가 적힌 사진을 만드는 함수
         '''
@@ -106,11 +106,28 @@ class makeLyricsVideo:
             curLine2 = self.lyricsFile.readline()
             nextLine = self.lyricsFile.readline()
             idx += 1
-
-        targetImage = Image.open('../../Images/background/background.jfif')
-        draw = ImageDraw.Draw(targetImage)
-        targetImage.save(f"../../Images/{self.videoName}/{alps[idx]}.jpg")
         self.lyricsFile.close()
+
+    def makeFinishImg(self) -> None:
+        targetImage = Image.open('../../Images/background/background.jfif')
+        fontsFolder = '../../Fonts'
+        draw = ImageDraw.Draw(targetImage)
+        selectedFont = ImageFont.truetype(
+                os.path.join(fontsFolder, 'GodoB.ttf'), 30)
+        draw.text(
+            (20, 20), text=f"{self.titleLine}", fill="#5d7530", font=selectedFont, align='center')
+        selectedFont = ImageFont.truetype(
+            os.path.join(fontsFolder, 'GodoM.ttf'), 40)
+        draw.text((1240, 20), text=f"Lyrics WFS", fill="#123152",
+                    font=selectedFont, align='center')
+        selectedFont = ImageFont.truetype(
+            os.path.join(fontsFolder, 'godoMaum.ttf'), 300)
+        draw.text(
+                (300, 200), text=f"Thanks For", fill="Black", font=selectedFont, align='center')
+        draw.text(
+                (350, 400), text=f"Listening", fill="Black", font=selectedFont, align='center')
+        targetImage.save(f"../../Images/{self.videoName}/zzz.jpg")
+        
 
     def getChangeTime(self) -> None:
         '''
@@ -191,7 +208,8 @@ if __name__ == '__main__':
     video = makeLyricsVideo(name)
     video.getLyrics()
     video.makeTitleImg()
-    video.makeImg()
+    video.makeImgs()
+    video.makeFinishImg()
     video.getChangeTime()
     video.makeVideo()
     video.downloadMusic()
