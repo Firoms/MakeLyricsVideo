@@ -55,19 +55,19 @@ class makeLyricsVideo:
         self.titleLine = self.lyricsFile.readline()
         title, singer = self.titleLine.split("-")
         fontsFolder = '../../Fonts'
-        targetImage = Image.open('../../Images/background/background.jfif')
+        targetImage = Image.open('../../Images/background/background.jpg')
         draw = ImageDraw.Draw(targetImage)
         selectedFont = ImageFont.truetype(
-            os.path.join(fontsFolder, 'GodoM.ttf'), 40)
-        draw.text((1240, 20), text=f"Lyrics WFS", fill="#123152",
+            os.path.join(fontsFolder, 'GodoM.ttf'), 60)
+        draw.text((2200, 40), text=f"Lyrics WFS", fill="#123152",
                   font=selectedFont, align='center')
         selectedFont = ImageFont.truetype(
-            os.path.join(fontsFolder, 'GodoB.ttf'), 80)
-        draw.text((100, 350), text=f"{title}",
+            os.path.join(fontsFolder, 'GodoB.ttf'), 270)
+        draw.text((170, 400), text=f"{title}",
                   fill="Black", font=selectedFont, align='center')
         selectedFont = ImageFont.truetype(
-            os.path.join(fontsFolder, 'GodoM.ttf'), 60)
-        draw.text((1000, 550), text=f"{singer}",
+            os.path.join(fontsFolder, 'GodoM.ttf'), 150)
+        draw.text((1300, 800), text=f"{singer}",
                   fill="#575759", font=selectedFont, align='center')
         targetImage.save(f"../../Images/{self.videoName}/aa.jpg")
         blankLine = self.lyricsFile.readline()
@@ -83,24 +83,24 @@ class makeLyricsVideo:
         fontsFolder = '../../Fonts'
         idx = 0
         while curLine1:
-            targetImage = Image.open('../../Images/background/background.jfif')
+            targetImage = Image.open('../../Images/background/background.jpg')
             draw = ImageDraw.Draw(targetImage)
             selectedFont = ImageFont.truetype(
-                os.path.join(fontsFolder, 'GodoB.ttf'), 30)
+                os.path.join(fontsFolder, 'GodoB.ttf'), 60)
             draw.text(
-                (20, 20), text=f"{self.titleLine}", fill="#5d7530", font=selectedFont, align='center')
+                (40, 40), text=f"{self.titleLine}", fill="#5d7530", font=selectedFont, align='center')
             selectedFont = ImageFont.truetype(
-                os.path.join(fontsFolder, 'GodoM.ttf'), 40)
-            draw.text((1240, 20), text=f"Lyrics WFS", fill="#123152",
+                os.path.join(fontsFolder, 'GodoM.ttf'), 60)
+            draw.text((2200, 40), text=f"Lyrics WFS", fill="#123152",
                       font=selectedFont, align='center')
             selectedFont = ImageFont.truetype(
-                os.path.join(fontsFolder, 'godoMaum.ttf'), 100)
+                os.path.join(fontsFolder, 'godoMaum.ttf'), 180)
             draw.text(
-                (100, 300), text=f"{curLine1}", fill="Black", font=selectedFont, align='center')
+                (200, 370), text=f"{curLine1}", fill="Black", font=selectedFont, align='center')
             draw.text(
-                (100, 450), text=f"{curLine2}", fill="Black", font=selectedFont, align='center')
+                (200, 670), text=f"{curLine2}", fill="Black", font=selectedFont, align='center')
             draw.text(
-                (100, 780), text=f"{nextLine}", fill="#575759", font=selectedFont, align='center')
+                (200, 1130), text=f"{nextLine}", fill="#575759", font=selectedFont, align='center')
             targetImage.save(f"../../Images/{self.videoName}/{alps[idx]}.jpg")
             curLine1 = nextLine
             curLine2 = self.lyricsFile.readline()
@@ -109,23 +109,23 @@ class makeLyricsVideo:
         self.lyricsFile.close()
 
     def makeFinishImg(self) -> None:
-        targetImage = Image.open('../../Images/background/background.jfif')
+        targetImage = Image.open('../../Images/background/background.jpg')
         fontsFolder = '../../Fonts'
         draw = ImageDraw.Draw(targetImage)
         selectedFont = ImageFont.truetype(
-                os.path.join(fontsFolder, 'GodoB.ttf'), 30)
+                os.path.join(fontsFolder, 'GodoB.ttf'), 60)
         draw.text(
-            (20, 20), text=f"{self.titleLine}", fill="#5d7530", font=selectedFont, align='center')
+            (40, 40), text=f"{self.titleLine}", fill="#5d7530", font=selectedFont, align='center')
         selectedFont = ImageFont.truetype(
-            os.path.join(fontsFolder, 'GodoM.ttf'), 40)
-        draw.text((1240, 20), text=f"Lyrics WFS", fill="#123152",
+            os.path.join(fontsFolder, 'GodoM.ttf'), 60)
+        draw.text((2200, 40), text=f"Lyrics WFS", fill="#123152",
                     font=selectedFont, align='center')
         selectedFont = ImageFont.truetype(
-            os.path.join(fontsFolder, 'godoMaum.ttf'), 300)
+            os.path.join(fontsFolder, 'godoMaum.ttf'), 500)
         draw.text(
-                (300, 200), text=f"Thanks For", fill="Black", font=selectedFont, align='center')
+                (510, 300), text=f"Thanks For", fill="Black", font=selectedFont, align='center')
         draw.text(
-                (350, 400), text=f"Listening", fill="Black", font=selectedFont, align='center')
+                (670, 650), text=f"Listening", fill="Black", font=selectedFont, align='center')
         targetImage.save(f"../../Images/{self.videoName}/zzz.jpg")
         
 
@@ -168,8 +168,8 @@ class makeLyricsVideo:
         영상에 필요한 노래를 유튜브 링크로부터 다운로드 받는 함수
         '''
         downloadList = []
-        youtubeURL = input("유튜브 링크를 입력해주세요 : ")
-        downloadList.append(youtubeURL)
+        self.youtubeURL = input("유튜브 링크를 입력해주세요 : ")
+        downloadList.append(self.youtubeURL)
         output_dir = os.path.join(
             f'../../Musics/{self.videoName}/', f'{self.videoName}.mp3')
 
@@ -194,12 +194,15 @@ class makeLyricsVideo:
             f"../../Videos/{self.videoName}/{self.videoName}.mp4", codec='mpeg4', audio_codec='libvorbis')
 
     def saveDatabase(self) -> None:
+        '''
+        영상 제작에 필요한 데이터들을 DB에 저장하는 함수
+        '''
         db = sqlite3.connect(
             "../../Database/Datas.db")
         cursor = db.cursor()
         cursor.execute(f"SELECT COUNT(*) FROM VideoDatas")
         count = cursor.fetchone()[0]
-        insert_query = f"INSERT INTO VideoDatas VALUES('{count+1}','{self.videoName}','{self.frameList}','{datetime.datetime.now()}')"
+        insert_query = f"INSERT INTO VideoDatas VALUES('{count+1}','{self.videoName}', '{self.youtubeURL}' ,'{self.frameList}','{datetime.datetime.now()}')"
         cursor.execute(insert_query)
         db.commit()
 
