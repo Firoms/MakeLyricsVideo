@@ -109,38 +109,47 @@ class makeLyricsVideo:
         self.lyricsFile.close()
 
     def makeFinishImg(self) -> None:
+        '''
+        영상의 마지막 이미지를 만드는 함수
+        '''
         targetImage = Image.open('../../Images/background/background.jpg')
         fontsFolder = '../../Fonts'
         draw = ImageDraw.Draw(targetImage)
         selectedFont = ImageFont.truetype(
-                os.path.join(fontsFolder, 'GodoB.ttf'), 60)
+            os.path.join(fontsFolder, 'GodoB.ttf'), 60)
         draw.text(
             (40, 40), text=f"{self.titleLine}", fill="#5d7530", font=selectedFont, align='center')
         selectedFont = ImageFont.truetype(
             os.path.join(fontsFolder, 'GodoM.ttf'), 60)
         draw.text((2200, 40), text=f"Lyrics WFS", fill="#123152",
-                    font=selectedFont, align='center')
+                  font=selectedFont, align='center')
         selectedFont = ImageFont.truetype(
             os.path.join(fontsFolder, 'godoMaum.ttf'), 500)
         draw.text(
-                (510, 300), text=f"Thanks For", fill="Black", font=selectedFont, align='center')
+            (510, 300), text=f"Thanks For", fill="Black", font=selectedFont, align='center')
         draw.text(
-                (670, 650), text=f"Listening", fill="Black", font=selectedFont, align='center')
+            (670, 650), text=f"Listening", fill="Black", font=selectedFont, align='center')
         targetImage.save(f"../../Images/{self.videoName}/zzz.jpg")
-        
 
     def getChangeTime(self) -> None:
         '''
         가사를 넘겨줄 타이밍을 입력받는 함수
         '''
+        showLyrics = open(
+            f'../../Lyrics/{self.videoName}/lyrics.txt', 'r', encoding='UTF8')
         timeList = [0]
         print("가사를 넘길 시간을 입력해주세요\n")
+        print(showLyrics.readline())
+        print(showLyrics.readline())
         while True:
             time = input()
+            print(showLyrics.readline())
+            print(showLyrics.readline())
             try:
                 timeList.append(int(time[0])*60 + int(time[1:3]))
             except:
                 break
+        showLyrics.close()
 
         self.frameList = []
         for i in range(len(timeList)):
@@ -152,7 +161,7 @@ class makeLyricsVideo:
         '''
         가사가 적힌 사진을 모아 영상으로 제작하는 함수
         '''
-        frameSize = (1470, 980)
+        frameSize = (2560, 1440)
         out = cv2.VideoWriter(f'../../Videos/{self.videoName}/{self.videoName}-nosound.avi',
                               cv2.VideoWriter_fourcc(*'DIVX'), 1, frameSize)
         idx = 0
@@ -206,6 +215,7 @@ class makeLyricsVideo:
         cursor.execute(insert_query)
         db.commit()
 
+
 if __name__ == '__main__':
     name = input("영상 제목을 영어로 입력해주세요 : ")
     video = makeLyricsVideo(name)
@@ -218,5 +228,3 @@ if __name__ == '__main__':
     video.downloadMusic()
     video.putMusicInVideo()
     video.saveDatabase()
-
-    
