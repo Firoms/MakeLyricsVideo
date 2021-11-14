@@ -3,9 +3,11 @@ import datetime
 import glob
 import moviepy.editor as mp
 import os
+import requests
 import sqlite3
 import youtube_dl
 from alpGenerator import alpGenerator
+from bs4 import BeautifulSoup
 from PIL import Image, ImageDraw, ImageFont
 
 
@@ -38,20 +40,36 @@ class makeLyricsVideo:
 
     def getLyrics(self) -> None:
         '''
-        영상에 들어갈 제목, 가수, 가사를 입력받는 함수
+        영상에 들어갈 가사를 스크래핑 하는 함수
         '''
-        fileCreate = open(f'../../Lyrics/{self.videoName}/lyrics.txt', 'w')
+        fileCreate = open(f'../../Lyrics/{self.videoName}/lyrics.txt', 'w', encoding='cp949')
+        basicURL = 'https://music.bugs.co.kr/search/integrated?q='
+        song = input("노래 제목 - 가수 입력\n> ")
+        searchURL = basicURL + song
+        searchHtml = requests.get(searchURL).text
+        searchSoup = BeautifulSoup(searchHtml, "html.parser")
+        lyricsBtnTag = searchSoup.find("a", {"class": "trackInfo"})
+        lyricsURL = lyricsBtnTag["href"]
+        lyricsHtml = requests.get(lyricsURL).text
+        lyricsSoup = BeautifulSoup(lyricsHtml, "html.parser")
+        lyricsTag = lyricsSoup.find("xmp")
+        lyrics = lyricsTag.text
+        lyricsLines = list(lyrics.split("\r\n"))
+        fileCreate.write(f"{song}\n#\n")
+        for i in range(len(lyricsLines)):
+            if i % 2 == 0:
+                fileCreate.write(f"{lyricsLines[i]}\n")
+            else:
+                fileCreate.write(f"{lyricsLines[i]} #\n")
+        fileCreate.write("#\n")
         fileCreate.close()
-        print(f"Lyrics/{self.videoName} 폴더 안에 생성된 lyrics.txt 파일에 가사를 입력해주세요.")
-        print('첫번째 줄은 "제목 - 가수" 형식이어야 하며, 두번째 줄은 공백, 세번째 줄부터는 가사를 넣어주세요.')
-        lyricsInput = input("저장 이후 파일을 닫고 엔터를 눌러주시면 진행됩니다.")
-        self.lyricsFile = open(
-            f'../../Lyrics/{self.videoName}/lyrics.txt', 'r', encoding='UTF8')
 
     def makeTitleImg(self) -> None:
         '''
         영상에 들어갈 제목 사진을 만드는 함수
         '''
+        self.lyricsFile = open(
+            f'../../Lyrics/{self.videoName}/lyrics.txt', 'r', encoding='cp949')
         self.titleLine = self.lyricsFile.readline()
         title, singer = self.titleLine.split("-")
         fontsFolder = '../../Fonts'
@@ -76,9 +94,9 @@ class makeLyricsVideo:
         '''
         영상에 들어갈 가사가 적힌 사진을 만드는 함수
         '''
-        curLine1 = self.lyricsFile.readline()
-        curLine2 = self.lyricsFile.readline()
-        nextLine = self.lyricsFile.readline()
+        curLine1 = self.lyricsFile.readline().split("#")[0]
+        curLine2 = self.lyricsFile.readline().split("#")[0]
+        nextLine = self.lyricsFile.readline().split("#")[0]
         alps = list(alpGenerator())
         fontsFolder = '../../Fonts'
         idx = 0
@@ -103,8 +121,8 @@ class makeLyricsVideo:
                 (200, 1130), text=f"{nextLine}", fill="#575759", font=selectedFont, align='center')
             targetImage.save(f"../../Images/{self.videoName}/{alps[idx]}.jpg")
             curLine1 = nextLine
-            curLine2 = self.lyricsFile.readline()
-            nextLine = self.lyricsFile.readline()
+            curLine2 = self.lyricsFile.readline().split("#")[0]
+            nextLine = self.lyricsFile.readline().split("#")[0]
             idx += 1
         self.lyricsFile.close()
 
@@ -135,22 +153,16 @@ class makeLyricsVideo:
         '''
         가사를 넘겨줄 타이밍을 입력받는 함수
         '''
-        showLyrics = open(
-            f'../../Lyrics/{self.videoName}/lyrics.txt', 'r', encoding='UTF8')
+        wait = input("타이밍을 txt 파일에 입력해주세요.")
+        getTimeFile = open(
+            f'../../Lyrics/{self.videoName}/lyrics.txt', 'r', encoding='cp949')
         timeList = [0]
-        print("가사를 넘길 시간을 입력해주세요\n")
-        print(showLyrics.readline())
-        print(showLyrics.readline())
-        while True:
-            time = input()
-            print(showLyrics.readline())
-            print(showLyrics.readline())
-            try:
-                timeList.append(int(time[0])*60 + int(time[1:3]))
-            except:
-                break
-        showLyrics.close()
-
+        curLine = True
+        while curLine!=['']:
+            curLine = list(getTimeFile.readline().split('#'))
+            if len(curLine) == 2:
+                timeList.append(int(curLine[1][0])*60 + int(curLine[1][1:3]))
+        getTimeFile.close()
         self.frameList = []
         for i in range(len(timeList)):
             if i == 0:
