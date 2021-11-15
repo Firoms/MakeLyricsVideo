@@ -25,24 +25,23 @@ class makeLyricsVideo:
         """
         영상 제작에 필요한 파일들을 저장하는 디렉토리 생성 함수
         """
+        fileTypes = ['Images', 'Lyrics', 'Musics', 'Videos']
         try:
-            os.chdir('../../Lyrics')
+            # is exist
+            os.chdir('../../Outputs')
             os.mkdir(self.videoName)
-            os.chdir('../Musics')
-            os.mkdir(self.videoName)
-            os.chdir('../Images')
-            os.mkdir(self.videoName)
-            os.chdir('../Videos')
-            os.mkdir(self.videoName)
+            os.chdir(f'./{self.videoName}')
+            for fileType in fileTypes:
+                os.mkdir(fileType)
         except:
             print("이미 같은 제목의 영상이 있습니다.")
-        os.chdir('../Python/Files')
+        os.chdir('../../Python/Files')
 
     def getLyrics(self) -> None:
         '''
         영상에 들어갈 가사를 스크래핑 하는 함수
         '''
-        fileCreate = open(f'../../Lyrics/{self.videoName}/lyrics.txt', 'w', encoding='cp949')
+        fileCreate = open(f'../../Outputs/{self.videoName}/Lyrics/lyrics.txt', 'w', encoding='cp949')
         basicURL = 'https://music.bugs.co.kr/search/integrated?q='
         song = input("노래 제목 - 가수 입력\n> ")
         searchURL = basicURL + song
@@ -55,6 +54,9 @@ class makeLyricsVideo:
         lyricsTag = lyricsSoup.find("xmp")
         lyrics = lyricsTag.text
         lyricsLines = list(lyrics.split("\r\n"))
+        enter = lyricsLines.count('')
+        for _ in range(enter):
+            lyricsLines.remove('')
         fileCreate.write(f"{song}\n#\n")
         for i in range(len(lyricsLines)):
             if i % 2 == 0:
@@ -69,25 +71,25 @@ class makeLyricsVideo:
         영상에 들어갈 제목 사진을 만드는 함수
         '''
         self.lyricsFile = open(
-            f'../../Lyrics/{self.videoName}/lyrics.txt', 'r', encoding='cp949')
+            f'../../Outputs/{self.videoName}/Lyrics/lyrics.txt', 'r', encoding='cp949')
         self.titleLine = self.lyricsFile.readline()
         title, singer = self.titleLine.split("-")
-        fontsFolder = '../../Fonts'
-        targetImage = Image.open('../../Images/background/background.jpg')
-        draw = ImageDraw.Draw(targetImage)
+        self.fontsFolder = '../../Settings/Fonts'
+        bgImg = Image.open('../../Settings/Images/background/background.jpg')
+        draw = ImageDraw.Draw(bgImg)
         selectedFont = ImageFont.truetype(
-            os.path.join(fontsFolder, 'GodoM.ttf'), 60)
+            os.path.join(self.fontsFolder, 'GodoM.ttf'), 60)
         draw.text((2200, 40), text=f"Lyrics WFS", fill="#123152",
                   font=selectedFont, align='center')
         selectedFont = ImageFont.truetype(
-            os.path.join(fontsFolder, 'GodoB.ttf'), 270)
+            os.path.join(self.fontsFolder, 'GodoB.ttf'), 270)
         draw.text((170, 400), text=f"{title}",
                   fill="Black", font=selectedFont, align='center')
         selectedFont = ImageFont.truetype(
-            os.path.join(fontsFolder, 'GodoM.ttf'), 150)
+            os.path.join(self.fontsFolder, 'GodoM.ttf'), 150)
         draw.text((1300, 800), text=f"{singer}",
                   fill="#575759", font=selectedFont, align='center')
-        targetImage.save(f"../../Images/{self.videoName}/aa.jpg")
+        bgImg.save(f"../../Outputs/{self.videoName}/Images/aa.jpg")
         blankLine = self.lyricsFile.readline()
 
     def makeImgs(self) -> None:
@@ -98,28 +100,27 @@ class makeLyricsVideo:
         curLine2 = self.lyricsFile.readline().split("#")[0]
         nextLine = self.lyricsFile.readline().split("#")[0]
         alps = list(alpGenerator())
-        fontsFolder = '../../Fonts'
         idx = 0
         while curLine1:
-            targetImage = Image.open('../../Images/background/background.jpg')
-            draw = ImageDraw.Draw(targetImage)
+            bgImg = Image.open('../../Settings/Images/background/background.jpg')
+            draw = ImageDraw.Draw(bgImg)
             selectedFont = ImageFont.truetype(
-                os.path.join(fontsFolder, 'GodoB.ttf'), 60)
+                os.path.join(self.fontsFolder, 'GodoB.ttf'), 60)
             draw.text(
                 (40, 40), text=f"{self.titleLine}", fill="#5d7530", font=selectedFont, align='center')
             selectedFont = ImageFont.truetype(
-                os.path.join(fontsFolder, 'GodoM.ttf'), 60)
+                os.path.join(self.fontsFolder, 'GodoM.ttf'), 60)
             draw.text((2200, 40), text=f"Lyrics WFS", fill="#123152",
                       font=selectedFont, align='center')
             selectedFont = ImageFont.truetype(
-                os.path.join(fontsFolder, 'godoMaum.ttf'), 180)
+                os.path.join(self.fontsFolder, 'godoMaum.ttf'), 180)
             draw.text(
                 (200, 370), text=f"{curLine1}", fill="Black", font=selectedFont, align='center')
             draw.text(
                 (200, 670), text=f"{curLine2}", fill="Black", font=selectedFont, align='center')
             draw.text(
                 (200, 1130), text=f"{nextLine}", fill="#575759", font=selectedFont, align='center')
-            targetImage.save(f"../../Images/{self.videoName}/{alps[idx]}.jpg")
+            bgImg.save(f"../../Outputs/{self.videoName}/Images/{alps[idx]}.jpg")
             curLine1 = nextLine
             curLine2 = self.lyricsFile.readline().split("#")[0]
             nextLine = self.lyricsFile.readline().split("#")[0]
@@ -130,24 +131,23 @@ class makeLyricsVideo:
         '''
         영상의 마지막 이미지를 만드는 함수
         '''
-        targetImage = Image.open('../../Images/background/background.jpg')
-        fontsFolder = '../../Fonts'
-        draw = ImageDraw.Draw(targetImage)
+        bgImg = Image.open('../../Settings/Images/background/background.jpg')
+        draw = ImageDraw.Draw(bgImg)
         selectedFont = ImageFont.truetype(
-            os.path.join(fontsFolder, 'GodoB.ttf'), 60)
+            os.path.join(self.fontsFolder, 'GodoB.ttf'), 60)
         draw.text(
             (40, 40), text=f"{self.titleLine}", fill="#5d7530", font=selectedFont, align='center')
         selectedFont = ImageFont.truetype(
-            os.path.join(fontsFolder, 'GodoM.ttf'), 60)
+            os.path.join(self.fontsFolder, 'GodoM.ttf'), 60)
         draw.text((2200, 40), text=f"Lyrics WFS", fill="#123152",
                   font=selectedFont, align='center')
         selectedFont = ImageFont.truetype(
-            os.path.join(fontsFolder, 'godoMaum.ttf'), 500)
+            os.path.join(self.fontsFolder, 'godoMaum.ttf'), 500)
         draw.text(
             (510, 300), text=f"Thanks For", fill="Black", font=selectedFont, align='center')
         draw.text(
             (670, 650), text=f"Listening", fill="Black", font=selectedFont, align='center')
-        targetImage.save(f"../../Images/{self.videoName}/zzz.jpg")
+        bgImg.save(f"../../Outputs/{self.videoName}/Images/zzz.jpg")
 
     def getChangeTime(self) -> None:
         '''
@@ -155,7 +155,7 @@ class makeLyricsVideo:
         '''
         wait = input("타이밍을 txt 파일에 입력해주세요.")
         getTimeFile = open(
-            f'../../Lyrics/{self.videoName}/lyrics.txt', 'r', encoding='cp949')
+            f'../../Outputs/{self.videoName}/Lyrics/lyrics.txt', 'r', encoding='cp949')
         timeList = [0]
         curLine = True
         while curLine!=['']:
@@ -174,10 +174,10 @@ class makeLyricsVideo:
         가사가 적힌 사진을 모아 영상으로 제작하는 함수
         '''
         frameSize = (2560, 1440)
-        out = cv2.VideoWriter(f'../../Videos/{self.videoName}/{self.videoName}-nosound.avi',
+        out = cv2.VideoWriter(f'../../Outputs/{self.videoName}/Videos/{self.videoName}-nosound.avi',
                               cv2.VideoWriter_fourcc(*'DIVX'), 1, frameSize)
         idx = 0
-        for filename in glob.glob(f'../../Images/{self.videoName}/*.jpg'):
+        for filename in glob.glob(f'../../Outputs/{self.videoName}/Images/*.jpg'):
             for i in range(self.frameList[idx]):
                 img = cv2.imread(filename)
                 out.write(img)
@@ -192,7 +192,7 @@ class makeLyricsVideo:
         self.youtubeURL = input("유튜브 링크를 입력해주세요 : ")
         downloadList.append(self.youtubeURL)
         output_dir = os.path.join(
-            f'../../Musics/{self.videoName}/', f'{self.videoName}.mp3')
+            f'../../Outputs/{self.videoName}/Musics/', f'{self.videoName}.mp3')
 
         ydlOpt = {
             'outtmpl': output_dir,
@@ -207,19 +207,19 @@ class makeLyricsVideo:
         영상에 다운로드 받은 음악을 합쳐 완성하는 함수
         '''
         audio = mp.AudioFileClip(
-            f"../../Musics/{self.videoName}/{self.videoName}.mp3")
+            f"../../Outputs/{self.videoName}/Musics/{self.videoName}.mp3")
         video1 = mp.VideoFileClip(
-            f"../../Videos/{self.videoName}/{self.videoName}-nosound.avi")
+            f"../../Outputs/{self.videoName}/Videos/{self.videoName}-nosound.avi")
         final = video1.set_audio(audio)
         final.write_videofile(
-            f"../../Videos/{self.videoName}/{self.videoName}.mp4", codec='mpeg4', audio_codec='libvorbis')
+            f"../../Outputs/{self.videoName}/Videos/{self.videoName}.mp4", codec='mpeg4', audio_codec='libvorbis')
 
     def saveDatabase(self) -> None:
         '''
         영상 제작에 필요한 데이터들을 DB에 저장하는 함수
         '''
         db = sqlite3.connect(
-            "../../Database/Datas.db")
+            "../../Settings/Database/Datas.db")
         cursor = db.cursor()
         cursor.execute(f"SELECT COUNT(*) FROM VideoDatas")
         count = cursor.fetchone()[0]
