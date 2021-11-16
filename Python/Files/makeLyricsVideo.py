@@ -82,11 +82,11 @@ class makeLyricsVideo:
         draw.text((2200, 40), text=f"Lyrics WFS", fill="#123152",
                   font=selectedFont, align='center')
         selectedFont = ImageFont.truetype(
-            os.path.join(self.fontsFolder, 'GodoB.ttf'), 270)
+            os.path.join(self.fontsFolder, 'GodoB.ttf'), 150)
         draw.text((170, 400), text=f"{title}",
                   fill="Black", font=selectedFont, align='center')
         selectedFont = ImageFont.truetype(
-            os.path.join(self.fontsFolder, 'GodoM.ttf'), 150)
+            os.path.join(self.fontsFolder, 'GodoM.ttf'), 100)
         draw.text((1300, 800), text=f"{singer}",
                   fill="#575759", font=selectedFont, align='center')
         bgImg.save(f"../../Outputs/{self.videoName}/Images/aa.jpg")

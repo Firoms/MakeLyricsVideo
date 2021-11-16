@@ -5,7 +5,9 @@ class ConfigManager():
         self.config = configparser.ConfigParser()
         
     def makeDefaultConfigFile(self) -> None:
-        pass
+        self.config['System'] = {}
+        self.config['System']['Version'] = 0.8
+        
 
     def readConfigFile(self) -> None:
         pass
