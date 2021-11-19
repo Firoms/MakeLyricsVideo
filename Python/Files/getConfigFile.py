@@ -1,4 +1,5 @@
 import configparser
+from time import strftime
 
 class ConfigManager():
     def __init__(self) -> None:
@@ -7,7 +8,24 @@ class ConfigManager():
     def makeDefaultConfigFile(self) -> None:
         self.config['System'] = {}
         self.config['System']['Version'] = 0.8
+        self.config['system']['update'] = strftime('%Y-%m-%d %H:%M:%S')
         
+        self.config['Writing'] = {}
+        self.config['Writing']['PreFace'] = {}
+        self.config['Writing']['PreFace']['Title & Singer'] = {}
+        self.config['Writing']['PreFace']['Maker'] = {}
+        self.config['Writing']['TitlePage'] = {}
+        self.config['Writing']['TitlePage']['Title'] = {}
+        self.config['Writing']['TitlePage']['Singer'] = {}
+        self.config['Writing']['LyricsPage'] = {}
+        self.config['Writing']['LyricsPage']['CurLyrics'] = {}
+        self.config['Writing']['LyricsPage']['NextLyrics'] = {}
+        self.config['Writing']['LastPage'] = {}
+        self.config['Writing']['LastPage']['Thanks For'] = {}
+        self.config['Writing']['LastPage']['Listening'] = {}
+        
+        with open('config.ini', 'w', encoding='cp949') as configfile:
+            self.config.write(configfile)
 
     def readConfigFile(self) -> None:
         pass
