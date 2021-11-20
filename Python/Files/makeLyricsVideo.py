@@ -80,15 +80,15 @@ class makeLyricsVideo:
         selectedFont = ImageFont.truetype(
             os.path.join(self.fontsFolder, 'GodoM.ttf'), 60)
         draw.text((2200, 40), text=f"Lyrics WFS", fill="#123152",
-                  font=selectedFont, align='center')
+                  font=selectedFont)
         selectedFont = ImageFont.truetype(
             os.path.join(self.fontsFolder, 'GodoB.ttf'), 150)
         draw.text((170, 400), text=f"{title}",
-                  fill="Black", font=selectedFont, align='center')
+                  fill="Black", font=selectedFont)
         selectedFont = ImageFont.truetype(
             os.path.join(self.fontsFolder, 'GodoM.ttf'), 100)
         draw.text((1300, 800), text=f"{singer}",
-                  fill="#575759", font=selectedFont, align='center')
+                  fill="#575759", font=selectedFont)
         bgImg.save(f"../../Outputs/{self.videoName}/Images/aa.jpg")
         blankLine = self.lyricsFile.readline()
 
@@ -107,19 +107,19 @@ class makeLyricsVideo:
             selectedFont = ImageFont.truetype(
                 os.path.join(self.fontsFolder, 'GodoB.ttf'), 60)
             draw.text(
-                (40, 40), text=f"{self.titleLine}", fill="#5d7530", font=selectedFont, align='center')
+                (40, 40), text=f"{self.titleLine}", fill="#5d7530", font=selectedFont)
             selectedFont = ImageFont.truetype(
                 os.path.join(self.fontsFolder, 'GodoM.ttf'), 60)
             draw.text((2200, 40), text=f"Lyrics WFS", fill="#123152",
-                      font=selectedFont, align='center')
+                      font=selectedFont)
             selectedFont = ImageFont.truetype(
                 os.path.join(self.fontsFolder, 'godoMaum.ttf'), 180)
             draw.text(
-                (200, 370), text=f"{curLine1}", fill="Black", font=selectedFont, align='center')
+                (200, 370), text=f"{curLine1}", fill="Black", font=selectedFont)
             draw.text(
-                (200, 670), text=f"{curLine2}", fill="Black", font=selectedFont, align='center')
+                (200, 670), text=f"{curLine2}", fill="Black", font=selectedFont)
             draw.text(
-                (200, 1130), text=f"{nextLine}", fill="#575759", font=selectedFont, align='center')
+                (200, 1130), text=f"{nextLine}", fill="#575759", font=selectedFont)
             bgImg.save(f"../../Outputs/{self.videoName}/Images/{alps[idx]}.jpg")
             curLine1 = nextLine
             curLine2 = self.lyricsFile.readline().split("#")[0]
@@ -136,17 +136,17 @@ class makeLyricsVideo:
         selectedFont = ImageFont.truetype(
             os.path.join(self.fontsFolder, 'GodoB.ttf'), 60)
         draw.text(
-            (40, 40), text=f"{self.titleLine}", fill="#5d7530", font=selectedFont, align='center')
+            (40, 40), text=f"{self.titleLine}", fill="#5d7530", font=selectedFont)
         selectedFont = ImageFont.truetype(
             os.path.join(self.fontsFolder, 'GodoM.ttf'), 60)
         draw.text((2200, 40), text=f"Lyrics WFS", fill="#123152",
-                  font=selectedFont, align='center')
+                  font=selectedFont)
         selectedFont = ImageFont.truetype(
             os.path.join(self.fontsFolder, 'godoMaum.ttf'), 500)
         draw.text(
-            (510, 300), text=f"Thanks For", fill="Black", font=selectedFont, align='center')
+            (510, 300), text=f"Thanks For", fill="Black", font=selectedFont)
         draw.text(
-            (670, 650), text=f"Listening", fill="Black", font=selectedFont, align='center')
+            (670, 650), text=f"Listening", fill="Black", font=selectedFont)
         bgImg.save(f"../../Outputs/{self.videoName}/Images/zzz.jpg")
 
     def getChangeTime(self) -> None:

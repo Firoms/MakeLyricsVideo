@@ -16,6 +16,11 @@ class ConfigManager():
         self.config['Writing']['PreFace']['Maker'] = {}
         self.config['Writing']['TitlePage'] = {}
         self.config['Writing']['TitlePage']['Title'] = {}
+        self.config['Writing']['TitlePage']['Title']['FontName'] = 1
+        self.config['Writing']['TitlePage']['Title']['FontSize'] = 1
+        self.config['Writing']['TitlePage']['Title']['PosX'] = 1
+        self.config['Writing']['TitlePage']['Title']['PosY'] = 1
+        self.config['Writing']['TitlePage']['Title']['Color'] = 1
         self.config['Writing']['TitlePage']['Singer'] = {}
         self.config['Writing']['LyricsPage'] = {}
         self.config['Writing']['LyricsPage']['CurLyrics'] = {}
