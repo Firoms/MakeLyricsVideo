@@ -41,7 +41,8 @@ class makeLyricsVideo:
         '''
         영상에 들어갈 가사를 스크래핑 하는 함수
         '''
-        fileCreate = open(f'../../Outputs/{self.videoName}/Lyrics/lyrics.txt', 'w', encoding='cp949')
+        fileCreate = open(
+            f'../../Outputs/{self.videoName}/Lyrics/lyrics.txt', 'w', encoding='cp949')
         basicURL = 'https://music.bugs.co.kr/search/integrated?q='
         song = input("노래 제목 - 가수 입력\n> ")
         searchURL = basicURL + song
@@ -102,7 +103,8 @@ class makeLyricsVideo:
         alps = list(alpGenerator())
         idx = 0
         while curLine1:
-            bgImg = Image.open('../../Settings/Images/background/background.jpg')
+            bgImg = Image.open(
+                '../../Settings/Images/background/background.jpg')
             draw = ImageDraw.Draw(bgImg)
             selectedFont = ImageFont.truetype(
                 os.path.join(self.fontsFolder, 'GodoB.ttf'), 60)
@@ -120,7 +122,8 @@ class makeLyricsVideo:
                 (200, 670), text=f"{curLine2}", fill="Black", font=selectedFont)
             draw.text(
                 (200, 1130), text=f"{nextLine}", fill="#575759", font=selectedFont)
-            bgImg.save(f"../../Outputs/{self.videoName}/Images/{alps[idx]}.jpg")
+            bgImg.save(
+                f"../../Outputs/{self.videoName}/Images/{alps[idx]}.jpg")
             curLine1 = nextLine
             curLine2 = self.lyricsFile.readline().split("#")[0]
             nextLine = self.lyricsFile.readline().split("#")[0]
@@ -158,7 +161,7 @@ class makeLyricsVideo:
             f'../../Outputs/{self.videoName}/Lyrics/lyrics.txt', 'r', encoding='cp949')
         timeList = [0]
         curLine = True
-        while curLine!=['']:
+        while curLine != ['']:
             curLine = list(getTimeFile.readline().split('#'))
             if len(curLine) == 2:
                 timeList.append(int(curLine[1][0])*60 + int(curLine[1][1:3]))
