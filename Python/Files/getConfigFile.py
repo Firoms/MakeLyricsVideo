@@ -11,24 +11,24 @@ class ConfigManager():
         self.config['System']['Version'] = '0.8'
         self.config['System']['update'] = strftime('%Y-%m-%d %H:%M:%S')
 
-        # self.config['Writing'] = {}
-        # self.config['Writing']['PreFace'] = {}
-        # self.config['Writing']['PreFace']['Title & Singer'] = {}
-        # self.config['Writing']['PreFace']['Maker'] = {}
-        # self.config['Writing']['TitlePage'] = {}
-        # self.config['Writing']['TitlePage']['Title'] = {}
-        # self.config['Writing']['TitlePage']['Title']['FontName'] = '1'
-        # self.config['Writing']['TitlePage']['Title']['FontSize'] = '1'
-        # self.config['Writing']['TitlePage']['Title']['PosX'] = '1'
-        # self.config['Writing']['TitlePage']['Title']['PosY'] = '1'
-        # self.config['Writing']['TitlePage']['Title']['Color'] = '1'
-        # self.config['Writing']['TitlePage']['Singer'] = {}
-        # self.config['Writing']['LyricsPage'] = {}
-        # self.config['Writing']['LyricsPage']['CurLyrics'] = {}
-        # self.config['Writing']['LyricsPage']['NextLyrics'] = {}
-        # self.config['Writing']['LastPage'] = {}
-        # self.config['Writing']['LastPage']['Thanks For'] = {}
-        # self.config['Writing']['LastPage']['Listening'] = {}
+        # self.config = {}
+        # self.config['PreFace'] = {}
+        # self.config['PreFace']['Title & Singer'] = {}
+        # self.config['PreFace']['Maker'] = {}
+        # self.config['TitlePage'] = {}
+        # self.config['TitlePage']['Title'] = {}
+        # self.config['TitlePage']['Title']['FontName'] = '1'
+        # self.config['TitlePage']['Title']['FontSize'] = '1'
+        # self.config['TitlePage']['Title']['PosX'] = '1'
+        # self.config['TitlePage']['Title']['PosY'] = '1'
+        # self.config['TitlePage']['Title']['Color'] = '1'
+        # self.config['TitlePage']['Singer'] = {}
+        # self.config['LyricsPage'] = {}
+        # self.config['LyricsPage']['CurLyrics'] = {}
+        # self.config['LyricsPage']['NextLyrics'] = {}
+        # self.config['LastPage'] = {}
+        # self.config['LastPage']['Thanks For'] = {}
+        # self.config['LastPage']['Listening'] = {}
 
         with open('config.ini', 'w', encoding='cp949') as configfile:
             self.config.write(configfile)
