@@ -10,25 +10,27 @@ class ConfigManager():
         self.config['System'] = {}
         self.config['System']['Version'] = '0.8'
         self.config['System']['update'] = strftime('%Y-%m-%d %H:%M:%S')
+        self.config['System']['Maker'] = 'Lyrics WFS'
 
-        # self.config = {}
-        # self.config['PreFace'] = {}
-        # self.config['PreFace']['Title & Singer'] = {}
-        # self.config['PreFace']['Maker'] = {}
-        # self.config['TitlePage'] = {}
-        # self.config['TitlePage']['Title'] = {}
-        # self.config['TitlePage']['Title']['FontName'] = '1'
-        # self.config['TitlePage']['Title']['FontSize'] = '1'
-        # self.config['TitlePage']['Title']['PosX'] = '1'
-        # self.config['TitlePage']['Title']['PosY'] = '1'
-        # self.config['TitlePage']['Title']['Color'] = '1'
-        # self.config['TitlePage']['Singer'] = {}
-        # self.config['LyricsPage'] = {}
-        # self.config['LyricsPage']['CurLyrics'] = {}
-        # self.config['LyricsPage']['NextLyrics'] = {}
-        # self.config['LastPage'] = {}
-        # self.config['LastPage']['Thanks For'] = {}
-        # self.config['LastPage']['Listening'] = {}
+        defaultWritings = {
+            'PreFace - Title & Singer': ['GodoB.ttf', '60', '40', '40', '#5d7530'],
+            'PreFace - Maker': ['GodoM.ttf', '60', '2200', '40', '#123152'],
+            'TitlePage - Title': ['GodoB.ttf', '150', '170', '400', 'Black'],
+            'TitlePage - Singer': ['GodoM.ttf', '100', '1300', '800', '#575759'],
+            'LyricsPage - CurLyrics1': ['godoMaum.ttf', '180', '200', '370', 'Black'],
+            'LyricsPage - CurLyrics2': ['godoMaum.ttf', '180', '200', '670', 'Black'],
+            'LyricsPage - NextLyrics': ['godoMaum.ttf', '180', '200', '1130', '#575759'],
+            'LastPage - Thanks For': ['godoMaum.ttf', '500', '510', '300', 'Black'],
+            'LastPage - Listening': ['godoMaum.ttf', '500', '670', '650', 'Black']
+        }
+
+        for key, val in defaultWritings.items():
+            self.config[f'{key}'] = {}
+            self.config[f'{key}']['Font'] = val[0]
+            self.config[f'{key}']['FontSize'] = val[1]
+            self.config[f'{key}']['PosX'] = val[2]
+            self.config[f'{key}']['PosY'] = val[3]
+            self.config[f'{key}']['Color'] = val[4]
 
         with open('config.ini', 'w', encoding='cp949') as configfile:
             self.config.write(configfile)
@@ -74,13 +76,9 @@ def config_read():
 
     # 설정파일의 색션 확인
     # config.sections())
-    version_read(config)
-
-def version_read(config):
-
     ver = config['system']['version']
     title = config['system']['title']
-    print(title,ver)
+    print(title, ver)
 
 config_generator()
 config_read()
