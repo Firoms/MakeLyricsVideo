@@ -10,7 +10,6 @@ from alpGenerator import alpGenerator
 from bs4 import BeautifulSoup
 from PIL import Image, ImageDraw, ImageFont
 
-
 class makeLyricsVideo:
     '''
     노래 가사 영상을 최대한 간편하게 제작할 수 있도록 도와주는 클래스
@@ -20,7 +19,7 @@ class makeLyricsVideo:
     def __init__(self, name: str) -> None:
         self.videoName = name
         self.makeDir()
-
+    
     def makeDir(self) -> None:
         """
         영상 제작에 필요한 파일들을 저장하는 디렉토리 생성 함수
