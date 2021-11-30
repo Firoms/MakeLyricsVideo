@@ -8,7 +8,9 @@ import sqlite3
 import youtube_dl
 from alpGenerator import alpGenerator
 from bs4 import BeautifulSoup
+from getWritingSettings import *
 from PIL import Image, ImageDraw, ImageFont
+
 
 class makeLyricsVideo:
     '''
@@ -19,7 +21,7 @@ class makeLyricsVideo:
     def __init__(self, name: str) -> None:
         self.videoName = name
         self.makeDir()
-    
+
     def makeDir(self) -> None:
         """
         영상 제작에 필요한 파일들을 저장하는 디렉토리 생성 함수
@@ -78,17 +80,17 @@ class makeLyricsVideo:
         bgImg = Image.open('../../Settings/Images/background/background.jpg')
         draw = ImageDraw.Draw(bgImg)
         selectedFont = ImageFont.truetype(
-            os.path.join(self.fontsFolder, 'GodoM.ttf'), 60)
-        draw.text((2200, 40), text=f"Lyrics WFS", fill="#123152",
+            os.path.join(self.fontsFolder, ValSet['PreFace - Maker']['Font']), int(ValSet['PreFace - Maker']['FontSize']))
+        draw.text((int(ValSet['PreFace - Maker']['PosX']), int(ValSet['PreFace - Maker']['PosY'])), text=SystemVal['Maker'], fill=ValSet['PreFace - Maker']['Color'],
                   font=selectedFont)
         selectedFont = ImageFont.truetype(
-            os.path.join(self.fontsFolder, 'GodoB.ttf'), 150)
-        draw.text((170, 400), text=f"{title}",
-                  fill="Black", font=selectedFont)
+            os.path.join(self.fontsFolder, ValSet['TitlePage - Title']['Font']), int(ValSet['TitlePage - Title']['FontSize']))
+        draw.text((int(ValSet['TitlePage - Title']['PosX']), int(ValSet['TitlePage - Title']['PosY'])), text=f"{title}",
+                  fill=ValSet['TitlePage - Title']['Color'], font=selectedFont)
         selectedFont = ImageFont.truetype(
-            os.path.join(self.fontsFolder, 'GodoM.ttf'), 100)
-        draw.text((1300, 800), text=f"{singer}",
-                  fill="#575759", font=selectedFont)
+            os.path.join(self.fontsFolder, ValSet['TitlePage - Singer']['Font']), int(ValSet['TitlePage - Singer']['FontSize']))
+        draw.text((int(ValSet['TitlePage - Singer']['PosX']), int(ValSet['TitlePage - Singer']['PosY'])), text=f"{singer}",
+                  fill=ValSet['TitlePage - Singer']['Color'], font=selectedFont)
         bgImg.save(f"../../Outputs/{self.videoName}/Images/aa.jpg")
         blankLine = self.lyricsFile.readline()
 

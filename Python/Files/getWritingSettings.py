@@ -25,3 +25,10 @@ for category in writingCategories:
     ValSet[category]={}
     for item in writingitems:
         ValSet[category][item]= CM.config[category][item]
+
+SystemVal = {}
+SystemVal['Version'] = CM.config['System']['Version']
+SystemVal['Update'] = CM.config['System']['Update']
+SystemVal['Maker'] = CM.config['System']['Maker']
+
+ValSet['PreFace - Title & Singer']
