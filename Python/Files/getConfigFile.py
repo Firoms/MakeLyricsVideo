@@ -3,10 +3,16 @@ from time import strftime
 
 
 class ConfigManager:
+    '''
+    config.ini 파일을 생성하고 쉽게 관리할 수 있게 도와주는 클래스
+    '''
     def __init__(self) -> None:
         self.config = configparser.ConfigParser()
 
     def makeDefaultConfigFile(self) -> None:
+        '''
+        config.ini를 생성하는 메서드
+        '''
         self.config["System"] = {}
         self.config["System"]["Version"] = "0.8"
         self.config["System"]["Update"] = strftime("%Y-%m-%d %H:%M:%S")
@@ -42,6 +48,9 @@ class ConfigManager:
             self.config.write(configfile)
 
     def readConfigFile(self) -> None:
+        '''
+        config.ini를 읽어들이는 메서드
+        '''
         self.config.read("../../Settings/config.ini", encoding="cp949")
 
 

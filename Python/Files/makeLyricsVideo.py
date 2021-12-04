@@ -24,7 +24,7 @@ class makeLyricsVideo:
 
     def makeDir(self) -> None:
         """
-        영상 제작에 필요한 파일들을 저장하는 디렉토리 생성 함수
+        영상 제작에 필요한 파일들을 저장하는 디렉토리 생성 메서드
         """
         fileTypes = ["Images", "Lyrics", "Musics", "Videos"]
         try:
@@ -40,7 +40,7 @@ class makeLyricsVideo:
 
     def getLyrics(self) -> None:
         """
-        영상에 들어갈 가사를 스크래핑 하는 함수
+        영상에 들어갈 가사를 스크래핑 하는 메서드
         """
         fileCreate = open(
             f"../../Outputs/{self.videoName}/Lyrics/lyrics.txt", "w", encoding="cp949"
@@ -71,7 +71,7 @@ class makeLyricsVideo:
 
     def makeTitleImg(self) -> None:
         """
-        영상에 들어갈 제목 사진을 만드는 함수
+        영상에 들어갈 제목 사진을 만드는 메서드
         """
         self.lyricsFile = open(
             f"../../Outputs/{self.videoName}/Lyrics/lyrics.txt", "r", encoding="cp949"
@@ -125,7 +125,7 @@ class makeLyricsVideo:
 
     def makeImgs(self) -> None:
         """
-        영상에 들어갈 가사가 적힌 사진을 만드는 함수
+        영상에 들어갈 가사가 적힌 사진을 만드는 메서드
         """
         curLine1 = self.lyricsFile.readline().split("#")[0]
         curLine2 = self.lyricsFile.readline().split("#")[0]
@@ -205,7 +205,7 @@ class makeLyricsVideo:
 
     def makeFinishImg(self) -> None:
         """
-        영상의 마지막 이미지를 만드는 함수
+        영상의 마지막 이미지를 만드는 메서드
         """
         bgImg = Image.open("../../Settings/Images/background/background.jpg")
         draw = ImageDraw.Draw(bgImg)
@@ -261,7 +261,7 @@ class makeLyricsVideo:
 
     def getChangeTime(self) -> None:
         """
-        가사를 넘겨줄 타이밍을 입력받는 함수
+        가사를 넘겨줄 타이밍을 입력받는 메서드
         """
         wait = input("타이밍을 txt 파일에 입력해주세요.")
         getTimeFile = open(
@@ -282,7 +282,7 @@ class makeLyricsVideo:
 
     def makeVideo(self) -> None:
         """
-        가사가 적힌 사진을 모아 영상으로 제작하는 함수
+        가사가 적힌 사진을 모아 영상으로 제작하는 메서드
         """
         frameSize = (2560, 1440)
         out = cv2.VideoWriter(
@@ -301,7 +301,7 @@ class makeLyricsVideo:
 
     def downloadMusic(self) -> None:
         """
-        영상에 필요한 노래를 유튜브 링크로부터 다운로드 받는 함수
+        영상에 필요한 노래를 유튜브 링크로부터 다운로드 받는 메서드
         """
         downloadList = []
         self.youtubeURL = input("유튜브 링크를 입력해주세요 : ")
@@ -320,7 +320,7 @@ class makeLyricsVideo:
 
     def putMusicInVideo(self) -> None:
         """
-        영상에 다운로드 받은 음악을 합쳐 완성하는 함수
+        영상에 다운로드 받은 음악을 합쳐 완성하는 메서드
         """
         audio = mp.AudioFileClip(
             f"../../Outputs/{self.videoName}/Musics/{self.videoName}.mp3"
@@ -337,7 +337,7 @@ class makeLyricsVideo:
 
     def saveDatabase(self) -> None:
         """
-        영상 제작에 필요한 데이터들을 DB에 저장하는 함수
+        영상 제작에 필요한 데이터들을 DB에 저장하는 메서드
         """
         db = sqlite3.connect("../../Settings/Database/Datas.db")
         cursor = db.cursor()

@@ -8,7 +8,7 @@ from alpGenerator import *
 """
 
 
-def test_alpGenerator():
+def test_alpGenerator() -> None:
     '''
     aaa ~ zzz 까지를 생성해주는 alpGenterator 테스트 함수
     :Test 1: Generator type이 return 되는지 확인
