@@ -1,5 +1,6 @@
 import types
 from alpGenerator import *
+from getConfigFile import *
 
 
 """
@@ -27,3 +28,10 @@ def test_alpGenerator() -> None:
 
     alps = alpGenerator() 
     assert list(alps)[-3]=='zzx', "alpGenerator 함수가 생성하는 뒤에서 3번 째 값이 일치하지 않습니다."
+
+
+def testConfigManager() -> None:
+    '''
+    '''
+    CM = ConfigManager()
+    assert type(CM) == types.ClassMethodDescriptorType, "ConfigManger가 클래스 자료형이 아닙니다."
