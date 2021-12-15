@@ -24,7 +24,7 @@ class ChangeMP3Tag():
         self.youtubeURL = input("유튜브 링크를 입력해주세요 : ")
         downloadList.append(self.youtubeURL)
         output_dir = os.path.join(
-            f"../../Musics/", f"1.mp3"
+            f"../../Musics/", f"123.mp3"
         )
 
         ydlOpt = {
@@ -93,9 +93,8 @@ class ChangeMP3Tag():
 
 
 if __name__=="__main__":
-    # search = input("노래 제목 & 아티스트 입력\n> ")
-    search = 123
+    search = input("노래 제목 & 아티스트 입력\n> ")
     CMT = ChangeMP3Tag(search)
-    # CMT.downloadMusic()
-    # CMT.getDatas()
-    CMT.changeTag()
+    CMT.downloadMusic()
+    CMT.getDatas()
+    # CMT.changeTag()
