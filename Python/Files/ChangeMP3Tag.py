@@ -7,12 +7,14 @@ from bs4 import BeautifulSoup
 # eyed3 no audio files found
 # add id3 tags to mp3 python
 
-class ChangeMP3Tag():
+
+class ChangeMP3Tag:
     """
     노래 MP3 파일을 유튜브로부터 다운로드 받고,
     mp3의 ID3 태그 값에 제목, 아티스트, 앨범, 가사 값을 집어넣어주는 클래스
     :param search: 제목과 아티스트
     """
+
     def __init__(self, search) -> None:
         self.search = search
 
@@ -23,9 +25,7 @@ class ChangeMP3Tag():
         downloadList = []
         self.youtubeURL = input("유튜브 링크를 입력해주세요 : ")
         downloadList.append(self.youtubeURL)
-        output_dir = os.path.join(
-            f"../../Musics/", f"123.mp3"
-        )
+        output_dir = os.path.join(f"../../Musics/", f"123.mp3")
 
         ydlOpt = {
             "outtmpl": output_dir,
@@ -34,7 +34,6 @@ class ChangeMP3Tag():
 
         with youtube_dl.YoutubeDL(ydlOpt) as ydl:
             ydl.download(downloadList)
-
 
     def getDatas(self) -> None:
         """
@@ -66,10 +65,12 @@ class ChangeMP3Tag():
         fileCreate.write("#\n")
         fileCreate.close()
 
-        TitleTag = lyricsSoup.find("header", {"class":"sectionPadding pgTitle noneLNB"})
+        TitleTag = lyricsSoup.find(
+            "header", {"class": "sectionPadding pgTitle noneLNB"}
+        )
         self.Title = TitleTag.find("h1").text.strip()
 
-        InfoTag = lyricsSoup.find("table", {"class":"info"})
+        InfoTag = lyricsSoup.find("table", {"class": "info"})
         self.Artist = InfoTag.find_all("td")[0].text.strip()
         self.Album = InfoTag.find_all("td")[2].text.strip()
 
@@ -87,12 +88,11 @@ class ChangeMP3Tag():
 
         # LyricsFile = open(f"../../Musics/Lyrics/{self.search}.txt", 'r', encoding="cp949")
         # audiofile.tag.lyrics.set(LyricsFile)
-        
+
         audiofile.tag.save()
 
 
-
-if __name__=="__main__":
+if __name__ == "__main__":
     search = input("노래 제목 & 아티스트 입력\n> ")
     CMT = ChangeMP3Tag(search)
     CMT.downloadMusic()
