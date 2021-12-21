@@ -25,11 +25,13 @@ class ChangeMP3Tag:
         downloadList = []
         self.youtubeURL = input("유튜브 링크를 입력해주세요 : ")
         downloadList.append(self.youtubeURL)
-        output_dir = os.path.join(f"../../Musics/", f"123.mp3")
+        output_dir = os.path.join(f"./", f"song.mp3")
 
         ydlOpt = {
             "outtmpl": output_dir,
             "format": "bestaudio/best",
+            "audioformat": "mp3",
+            "addmetadata": True,
         }
 
         with youtube_dl.YoutubeDL(ydlOpt) as ydl:
@@ -78,18 +80,27 @@ class ChangeMP3Tag:
         """
         MP3의 Tag를 변경하는 메서드
         """
-        audiofile = eyed3.load("song.mp3")
-        audiofile.initTag()
+        print("/////////////")
+        from mutagen.easyid3 import EasyID3
+
+        metatag = EasyID3()
+        metatag['title'] = "Song Title"
+        metatag['artist'] = "Song Artist"
+        metatag.RegisterTextKey("track", "TRCK")
+        metatag['track'] = 7
+        metatag.save("song.mp3")
+        # audiofile = eyed3.load("song.mp3")
+        # audiofile.initTag()
         # audiofile.tag.artist = self.Artist
         # audiofile.tag.album = self.Album
-        audiofile.tag.album_artist = "Various Artists"
+        # audiofile.tag.album_artist = "Various Artists"
         # audiofile.tag.title = self.Title
-        audiofile.tag.track_num = 0
+        # audiofile.tag.track_num = 0
 
         # LyricsFile = open(f"../../Musics/Lyrics/{self.search}.txt", 'r', encoding="cp949")
         # audiofile.tag.lyrics.set(LyricsFile)
 
-        audiofile.tag.save()
+        # audiofile.tag.save()
 
 
 if __name__ == "__main__":
@@ -97,4 +108,4 @@ if __name__ == "__main__":
     CMT = ChangeMP3Tag(search)
     CMT.downloadMusic()
     CMT.getDatas()
-    # CMT.changeTag()
+    CMT.changeTag()
