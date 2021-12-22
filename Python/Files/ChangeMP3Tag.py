@@ -84,10 +84,10 @@ class ChangeMP3Tag:
         from mutagen.easyid3 import EasyID3
 
         metatag = EasyID3()
-        metatag['title'] = "Song Title"
-        metatag['artist'] = "Song Artist"
+        metatag["title"] = "Song Title"
+        metatag["artist"] = "Song Artist"
         metatag.RegisterTextKey("track", "TRCK")
-        metatag['track'] = 7
+        metatag["track"] = 7
         metatag.save("song.mp3")
         # audiofile = eyed3.load("song.mp3")
         # audiofile.initTag()
