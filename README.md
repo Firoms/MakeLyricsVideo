@@ -11,9 +11,29 @@
 이를 최소화하여 가사달린 영상을 만들 수 있는 소프트웨어를 제작하였습니다.   
 
 ## 사용한 모듈 & 라이브러리
-3. sqlite3
-> 점수를 저장하기 위해 사용한 Database 모듈입니다.
-5. pillow
+1. sqlite3
+> 동영상 정보를 저장하기 위해 사용한 Database 모듈입니다.
+2. pillow
 > 이미지를 처리하기 위해 사용한 라이브러리 입니다.
-6. os
+3. os
 > 사진 파일의 위치를 쉽게 지정해주기 위해 사용한 모듈입니다.
+4. cv2
+>
+5. datetime
+>
+6. glob
+>
+7. moviepy
+>
+8. requests
+>
+9. youtube-dl
+>
+10. bs4
+>
+11. string
+>
+12. configparser
+>
+13. time
+>
